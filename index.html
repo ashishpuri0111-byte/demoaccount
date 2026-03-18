@@ -3,14 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
     <meta name="hilltopads-site-verification" content="7e305405855d9c01a450" />
-    
-    <title>WinGo VIP - Ultra Revenue Bot</title>
+    <title>WinGo VIP - Non-Stop Ad Machine</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
-        /* # CSS STYLES: Game ka look aur animations */
         :root { --bg:#f7f8ff; --blue:#2b3270; --red:#d93d3d; --green:#4caf50; --violet:#b659fe; }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; user-select: none; }
         body { background: var(--bg); padding-bottom: 80px; }
@@ -25,8 +21,6 @@
         .colors { display: flex; gap: 10px; margin-bottom: 20px; }
         .btn-c { flex: 1; padding: 14px; border: none; border-radius: 10px; color: white; font-weight: bold; font-size: 16px; }
         .g { background: var(--green); } .v { background: var(--violet); } .r { background: var(--red); }
-        
-        /* # AD STATUS: Jab ad chal raha hoga toh ye blink karega */
         #rewardStatus { display:none; position:fixed; top:20px; left:50%; transform:translateX(-50%); background:black; color:gold; padding:10px 20px; border-radius:50px; z-index:1000; font-weight:bold; border:2px solid gold; animation: blink 1s infinite; }
         @keyframes blink { 0% {opacity:1;} 50% {opacity:0.5;} 100% {opacity:1;} }
     </style>
@@ -37,7 +31,7 @@
 
 <div class="navbar">
     <div class="logo">WIN GO VIP</div>
-    <div style="color:green; font-size:12px;"><i class="fas fa-robot"></i> ULTRA BOT ACTIVE</div>
+    <div style="color:green; font-size:12px;"><i class="fas fa-robot"></i> NON-STOP ADS MODE</div>
 </div>
 
 <div class="wallet-card">
@@ -47,40 +41,25 @@
 
 <div class="board">
     <div class="info">
-        <div>
-            <div style="font-size:12px; color:#888;">Live Period</div>
-            <div style="font-size:18px; font-weight:bold;" id="pid">Loading...</div>
-        </div>
-        <div style="text-align:right;">
-            <div class="timer-box">
-                <div class="digit" id="s1">0</div><div class="digit" id="s2">0</div>
-            </div>
-        </div>
+        <div><div style="font-size:12px; color:#888;">Period</div><div style="font-size:18px; font-weight:bold;" id="pid">Loading...</div></div>
+        <div style="text-align:right;"><div class="timer-box"><div class="digit" id="s1">0</div><div class="digit" id="s2">0</div></div></div>
     </div>
-    <div class="colors">
-        <button class="btn-c g">Green</button>
-        <button class="btn-c v">Violet</button>
-        <button class="btn-c r">Red</button>
-    </div>
+    <div class="colors"><button class="btn-c g">Green</button><button class="btn-c v">Violet</button><button class="btn-c r">Red</button></div>
 </div>
 
 <script>
-    // # SMART LINK: Jahan aapka Monetag/Hilltop Ads ka link hai
+    // # SMART LINK: Aapka Monetag/Hilltop Link
     const SMART_LINK = "https://idealistic-revenue.com/kK2Uag"; 
     
-    // # BOT SETTINGS: Shuruati balance aur bet ki keemat
     let balance = 10; 
     const betCost = 10; 
-    const startTime = new Date().getTime();
 
     window.onload = () => {
-        // # LOCALSTORAGE: Pichla balance load karne ke liye
         const savedBal = localStorage.getItem('wingo_bal');
         if(savedBal) balance = parseFloat(savedBal);
         updateUI();
         startAutoGame();
         startTimer();
-        autoRestartLoop(); // 2-hour loop start
     };
 
     function updateUI() {
@@ -88,48 +67,39 @@
         localStorage.setItem('wingo_bal', balance);
     }
 
-    // # GAME TIMER: Har 30 second mein winning/loss result dikhayega
+    // # 100% LOSS SYSTEM: Taaki balance kharch ho aur ads load hon
     function startTimer() {
         setInterval(() => {
             const now = new Date();
             const rem = 30 - (Math.floor(now.getTime()/1000) % 30);
             document.getElementById('s1').innerText = Math.floor(rem/10);
             document.getElementById('s2').innerText = rem % 10;
-            document.getElementById('pid').innerText = "20260318" + Math.floor(now.getTime()/30000);
+            document.getElementById('pid').innerText = "20260319" + Math.floor(now.getTime()/30000);
             if(rem === 1) { 
-                if(Math.random() > 0.75) balance += betCost * 1.96;
+                console.log("Loss Cycle");
                 updateUI();
             }
         }, 1000);
     }
 
-    // # AUTO BETTING: Har 15 second mein bet lagayega
     function startAutoGame() {
         setInterval(() => {
-            if (balance >= betCost) {
-                balance -= betCost;
-                updateUI();
-                console.log("Auto-Bet Success");
-            } else {
+            if (balance < betCost) {
                 handleHighRevenueAd(); 
+            } else {
+                balance -= betCost; 
+                updateUI();
             }
-        }, 15000); 
+        }, 12000); // 12 second mein bet lagega
     }
 
-    // # REVENUE LOGIC: Ad kholna, scroll karna aur random time rukna
     function handleHighRevenueAd() {
         const status = document.getElementById('rewardStatus');
         status.style.display = 'block';
-        
-        // # RANDOM TIMER: Ad par 45s se 75s ke beech random time rukega (CPM Booster)
         const randomTime = Math.floor(Math.random() * (75000 - 45000 + 1)) + 45000;
-        
-        // # CACHE BUSTER: Har click ko 'Unique' dikhane ke liye link badalna
-        const finalLink = SMART_LINK + "?session=" + Math.random().toString(36).substring(5);
-        
+        const finalLink = SMART_LINK + "?s=" + Math.random().toString(36).substring(5);
         let adWin = window.open(finalLink, "_blank"); 
 
-        // # AUTO-SCROLL: Ad page par upar-neeche movement karna taaki click real lage
         let scrollInt = setInterval(() => {
             if (adWin && !adWin.closed) {
                 adWin.scrollBy(0, 150); 
@@ -140,26 +110,18 @@
         setTimeout(() => {
             clearInterval(scrollInt);
             if(adWin) adWin.close(); 
-            balance += 20; // Ad dekhne ka reward
+            balance += 25; // Ad reward
             updateUI();
             status.style.display = 'none';
-            
-            // # REFRESH: Cookies clear karne ke liye page reload
             location.reload(); 
         }, randomTime); 
     }
 
-    // # 2-HOUR INFINITE LOOP: 2 ghante baad site khud ko refresh karke restart karegi
-    function autoRestartLoop() {
-        setTimeout(() => {
-            console.log("Restarting Session for Safety...");
-            localStorage.removeItem('wingo_bal'); // Fresh start
-            window.location.href = window.location.pathname + "?refresh=" + new Date().getTime();
-        }, 7200000); // 7200000ms = 2 Hours
-    }
-
-    // # IP REFRESH (Optional): Har 15 minute mein page reload (VPN ke liye)
-    setTimeout(() => { location.reload(); }, 900000); 
+    // 2-Hour Auto Reset
+    setTimeout(() => {
+        localStorage.removeItem('wingo_bal');
+        window.location.href = window.location.pathname + "?r=" + new Date().getTime();
+    }, 7200000); 
 
 </script>
 </body>
